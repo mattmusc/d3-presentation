@@ -1,49 +1,273 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+  <title>Introduzione a D3.js</title>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/black.css">
+  <link rel="stylesheet" href="css/custom.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
 
-		<script src="js/reveal.js"></script>
+    <!--
+    <section>
+      <h1><span style="color: #0d99a5">D3</span>.js</h1>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+      <h4>Matteo Muscella</h4>
+
+      <p>11 Aprile 2019</p>
+
+      <img src="images/logo_d3.png" alt="d3-logo.png" style="width: 65%;"/>
+    </section>
+
+    <section>
+      <h2>Agenda</h2>
+
+      <p class="fragment">
+        Selezioni
+      </p>
+
+      <p class="fragment">
+        Data joins & General Update Pattern
+      </p>
+
+      <p class="fragment">
+        Scale <span class="fragment"><em>continue, sequenziali, divergenti,...</em></span>
+      </p>
+
+      <p class="fragment">
+        Assi
+      </p>
+
+    </section>
+
+    <section>
+      <h2>Agenda - dettagli</h2>
+
+      <span class="fragment">
+        <p>
+          Selezioni
+        </p>
+        <pre><code>d3.select(), d3.selectAll()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Data joins & General Update Pattern
+        </p>
+        <pre><code>selection.data()</code></pre>
+        <pre><code>selection.[enter, update, merge, exit]()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Scale <span class="fragment"><em>continue, sequenziali, quantizzate,...</em></span>
+        </p>
+      </span>
+      <span class="fragment">
+        <pre><code>d3.scale[Linear, Pow, Log, Time, Sequential, Quantize]()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
+          Assi
+        </p>
+        <pre><code>d3.axis[Top, Right, Bottom, Left]()</code></pre>
+      </span>
+
+    </section>
+
+
+    <section>
+
+      <h2>Selezioni - 1</h2>
+
+      <p>I metodi di selezione accettano qualunque <b>stringa selettore W3C</b>.</p>
+
+      <p><code>d3.select()</code> ritorna un array (di array) con il primo elemento che corrisponde al selettore.</p>
+
+      <pre><code>d3.select("body")</code></pre>
+      <pre><code>d3.select(".a-class")</code></pre>
+      <pre><code>d3.select("#an-id")</code></pre>
+
+    </section>
+
+    <section>
+
+      <h2>Selezioni - 2</h2>
+
+      <p><code>d3.selectAll()</code> ritorna un array (di array) con tutti gli elementi corrispondenti al selettore.</p>
+
+      <pre><code>d3.selectAll("body")</code></pre>
+      <pre><code>d3.selectAll(".a-class")</code></pre>
+      <pre><code>d3.selectAll("#an-id")</code></pre>
+
+      <a href="https://bost.ocks.org/mike/selection/" target="_blank">How selections work? (M. Bostock)</a>
+
+    </section>
+
+    <section id="selections">
+
+      <h2>Selezioni - 3</h2>
+
+      <pre><code>const data = [ 5, 25, 11, 9 ];
+
+// d3.select() ritorna una reference al primo elemento
+// identificato dal selettore.
+const svg = d3.select("body")
+  .append("svg")
+  .attr("width", 800)
+  .attr("heigth", 450);
+
+// svg.selectAll() ritorna n reference a quanti
+// elementi circle trova nestati nel tag svg.
+const circles = svg.selectAll("circle");
+</code></pre>
+
+      <a href="https://jsfiddle.net/mattmusc/238qjrh5/13/" target="_blank">Fiddle</a>
+
+    </section>
+
+    <section>
+
+      <h2>Operazioni sulle selezioni</h2>
+
+      <p>È possibile eseguire diverse operazioni sulle selezioni:</p>
+
+      <pre><code>selection.attr() // get / set di un attributo</code></pre>
+      <pre><code>selection.style() // get / set di una property css</code></pre>
+
+      <p>Queste sono quelle più comuni e quelle che ci serviranno.</p>
+    </section>
+
+    <section>
+
+      <h2>Data join - 1</h2>
+
+      <p><em>Nota:</em> consideriamo un documento con <em>body</em> vuoto</p>
+
+      <pre><code>const selection = d3.select("body").selectAll("p");</code></pre>
+
+      <p>Cosa succede quando eseguiamo</p>
+      <pre><code>selection.data([1, 2, 4])</code></pre>
+      <p>?</p>
+
+      <p class="fragment">La chiamata al metodo <em>data</em> effettua una <i>data-join</i> tra</p>
+      <ul>
+      <li class="fragment">gli elementi presenti nel DOM</li>
+      <li class="fragment">ciascun dato dell'array, rispettando l'ordine.</li>
+      </ul>
+
+    </section>
+
+    <section>
+
+      <img src="images/what.jpg" alt="what.jpg" style="width: 70%;">
+      
+    </section>
+    
+    <section>
+
+      <h2>Data join - 2</h2>
+
+      <p><em>Nota:</em> consideriamo un file html con <em>body</em> vuoto</p>
+
+      <pre><code>const selection = d3.select("body").selectAll("p");</code></pre>
+
+      <p>Cosa succede quando eseguiamo</p>
+      <pre><code>selection.data([1, 2, 4])</code></pre>
+      <p>?</p>
+
+      <p class="fragment">La chiamata al metodo <em>data</em> effettua una <i>data-join</i> tra</p>
+      <ul>
+        <li class="fragment">gli elementi presenti (o in <b style="color: #0d99a5">futuro</b> presenti) nel DOM</li>
+        <li class="fragment">ciascun dato dell'array, rispettando l'ordine.</li>
+      </ul>
+
+    </section>
+
+    -->
+
+    <section>
+
+      <h2>Data join - 3</h2>
+
+      <p>Dopo la chiamata al metodo <em style="color: #0d99a5">data</em> avrò accesso a 3 metodi:</p>
+
+      <ul class="fragment">
+        <li><pre><code>enter() </code></pre></li>
+        <li><pre><code>exit()</code></pre></li>
+        <li><pre><code>merge()</code></pre></li>
+      </ul>
+
+    </section>
+
+    <section>
+      <section>
+
+        <h2>selection.enter() selection</h2>
+
+        <p>Nella enter() selection vi sono <em style="color: #0d99a5;">tutti</em> gli elementi dello stesso tipo di quelli della selezione e <em style="color: #0d99a5">non</em> presenti nel DOM.</p>
+
+      </section>
+
+      <section>
+
+        <h2>selection.exit() selection</h2>
+
+        <p>Nella exit() selection vi sono <em style="color: #0d99a5">tutti</em> gli elementi presenti nel DOM <em style="color: #0d99a5;">rimossi</em> dall'array passato al metodo <em style="color: #0d99a5">data()</em></p>
+
+      </section>
+
+      <section>
+
+        <h2>selection.merge(another)</h2>
+
+        <p>Questo metodo, data una selezione, ne ritorna un'altra che <em style="color: #0d99a5">contiene gli elementi della mia selezione</em>  (la selezione su cui chiamo il metodo) e <em style="color: #0d99a5">quelli della selezione passata</em> nell'argomento.</p>
+
+        <p></p>
+
+      </section>
+    </section>
+
+  </div>
+</div>
+
+<script src="js/reveal.js"></script>
+
+<script>
+  Reveal.configure({
+    slideNumber: true
+  });
+  // More info about config & dependencies:
+  // - https://github.com/hakimel/reveal.js#configuration
+  // - https://github.com/hakimel/reveal.js#dependencies
+  Reveal.initialize({
+    dependencies: [
+      {src: 'plugin/markdown/marked.js'},
+      {src: 'plugin/markdown/markdown.js'},
+      {src: 'plugin/notes/notes.js', async: true},
+      {src: 'plugin/highlight/highlight.js', async: true}
+    ]
+  });
+</script>
+</body>
 </html>
