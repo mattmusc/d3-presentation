@@ -57,7 +57,7 @@
       </p>
 
       <p class="fragment">
-        Scale <span class="fragment"><em>continue, sequenziali, divergenti,...</em></span>
+        Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
       </p>
 
       <p class="fragment">
@@ -86,11 +86,11 @@
 
       <span class="fragment">
         <p>
-          Scale <span class="fragment"><em>continue, sequenziali, quantizzate,...</em></span>
+          Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
         </p>
       </span>
       <span class="fragment">
-        <pre><code>d3.scale[Linear, Pow, Log, Time, Sequential, Quantize]()</code></pre>
+        <pre><code>d3.scale[Linear, Pow, Log, Time, Sequential, Band]()</code></pre>
       </span>
 
       <span class="fragment">
@@ -137,10 +137,10 @@
 
     </section>
 
-    <section>
-      <h2>SVG questo sconosciuto</h2>
-      <img src="images/svg-coordinates-system.png" alt="svg-coordinate-system.png" style="width: 65%;">
-    </section>
+<!--    <section>-->
+<!--      <h2>SVG questo sconosciuto</h2>-->
+<!--      <img src="images/svg-coordinates-system.png" alt="svg-coordinate-system.png" style="width: 65%;">-->
+<!--    </section>-->
 
     <section>
 
@@ -184,7 +184,7 @@ const svg = d3.select("body")
   .attr("heigth", 450);
 
 // svg.selectAll() ritorna n reference a quanti
-// elementi circle trova nestati nel tag svg.
+// elementi circle trova dentro al tag svg.
 const circles = svg.selectAll("circle");
 </code></pre>
 
@@ -341,6 +341,26 @@ d3.scaleOrdinal().domain(['A', 'B']).range(['blue', 'red'])</code></pre>
   .domain(["Alice", "Bob", "Sergio"])
   .range([0, 800])
   .padding(0.2);</code></pre>
+    </section>
+
+    <section>
+      <h2>Assi</h2>
+
+      <p>È possibile creare gli assi in questo modo:</p>
+      <pre><code>const xAxisGroup = g.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height +")");
+
+// nella funzione di update:
+// aggiorno la scala
+x.domain(data.map(function(d){ return d.month }));
+
+// chiamo l'asse passandogli la scala aggiornata
+const xAxisCall = d3.axisBottom(x);
+xAxisGroup.call(xAxisCall);</code></pre>
+
+      <p>Posso sostituire
+      <code>d3.axisBottom()</code> con <code>Left, Right, Top</code></p>
     </section>
 
     <section class="links">
