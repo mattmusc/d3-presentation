@@ -28,11 +28,15 @@
   <div class="slides">
 
     <section>
+      <h2 style="text-transform: lowercase">http://192.168.10.52:8000/</h2>
+    </section>
+
+    <section>
       <h1><span style="color: #0d99a5">D3</span>.js</h1>
 
       <h4>Matteo Muscella</h4>
 
-      <p>11 Aprile 2019</p>
+      <p>Code Review #2 - 11 Aprile 2019</p>
 
       <img src="images/logo_d3.png" alt="d3-logo.png" style="width: 65%;"/>
     </section>
@@ -56,6 +60,12 @@
         Data joins & General Update Pattern
       </p>
 
+      <span class="fragment">
+        <p>
+          Linee, Archi
+        </p>
+      </span>
+
       <p class="fragment">
         Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
       </p>
@@ -67,7 +77,7 @@
     </section>
 
     <section>
-      <h2>Agenda - dettagli</h2>
+      <h2>Agenda - dettagli (1)</h2>
 
       <span class="fragment">
         <p>
@@ -86,6 +96,13 @@
 
       <span class="fragment">
         <p>
+          Linee, Archi
+        </p>
+        <pre><code>d3.line(), d3.arc()</code></pre>
+      </span>
+
+      <span class="fragment">
+        <p>
           Scale <span class="fragment"><em>continue, sequenziali, a bande,...</em></span>
         </p>
       </span>
@@ -93,13 +110,16 @@
         <pre><code>d3.scale[Linear, Pow, Log, Time, Sequential, Band]()</code></pre>
       </span>
 
-      <span class="fragment">
+    </section>
+
+    <section>
+      <span>
+        <h2>Agenda - dettagli (2)</h2>
         <p>
           Assi
         </p>
         <pre><code>d3.axis[Top, Right, Bottom, Left]()</code></pre>
       </span>
-
     </section>
 
     <section>
@@ -107,9 +127,7 @@
       <img src="images/show-us-a-demo.jpg" alt="show-us-a-demo.jpg" style="width: 90%;">
 
       <a target="_blank" href="https://www.google.it/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwim2eupksDhAhXLy6QKHT4pDKEQjRx6BAgBEAU&url=https%3A%2F%2Fslideplayer.com%2Fslide%2F6848889%2F&psig=AOvVaw2jfpbTUw7LPnoI1yvCO1Z2&ust=1554800428334766"
-          style="font-size: 0.28em;">
-        https://www.google.it/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwim2eupksDhAhXLy6QKHT4pDKEQjRx6BAgBEAU&url=https%3A%2F%2Fslideplayer.com%2Fslide%2F6848889%2F&psig=AOvVaw2jfpbTUw7LPnoI1yvCO1Z2&ust=1554800428334766
-      </a>
+          style="font-size: 0.28em;">Source</a>
 
     </section>
 
@@ -211,6 +229,17 @@ const circles = svg.selectAll("circle");
     </section>
 
     <section>
+      <h2>Data join - Intro</h2>
+
+      <p>
+        Una data-join dichiara una relazione tra una selezione di elementi del DOM (siano essi esistenti o meno) e un array di dati.
+      </p>
+
+      <p>Questa relazione viene mantenuta attraverso tre array corrispondenti alle selezioni enter(), exit() e update().</p>
+
+    </section>
+
+    <section>
 
       <h2>Data join - 1</h2>
 
@@ -265,7 +294,7 @@ const circles = svg.selectAll("circle");
       <ul class="fragment">
         <li>enter()</li>
         <li>exit()</li>
-        <li>merge()</li>
+        <li>update()</li>
       </ul>
 
     </section>
@@ -284,6 +313,14 @@ const circles = svg.selectAll("circle");
         <h2>selection.exit() selection</h2>
 
         <p>Nella exit() selection vi sono <em style="color: #0d99a5">tutti</em> gli elementi presenti nel DOM <em style="color: #0d99a5;">rimossi</em> dall'array passato al metodo <em style="color: #0d99a5">data()</em></p>
+
+      </section>
+
+      <section>
+
+        <h2>selection.update()</h2>
+
+        <p>Nella update() selection vi sono <em style="color: #0d99a5">tutti</em> gli elementi già presenti nel DOM.</p>
 
       </section>
 
@@ -372,13 +409,13 @@ xAxisGroup.call(xAxisCall);</code></pre>
       <code>d3.axisBottom()</code> con <code>Left, Right, Top</code></p>
     </section>
 
-    <section class="links">
-      <h2>Data sets</h2>
+<!--    <section class="links">-->
+<!--      <h2>Data sets</h2>-->
 
-      <a href="https://www.kaggle.com">Kaggle - by Google</a>
-      <p></p>
-      <a href="https://www.kaggle.com/jsphyg/weather-dataset-rattle-package" target="_blank">Rain in Australia</a>
-    </section>
+<!--      <a href="https://www.kaggle.com">Kaggle - by Google</a>-->
+<!--      <p></p>-->
+<!--      <a href="https://www.kaggle.com/jsphyg/weather-dataset-rattle-package" target="_blank">Rain in Australia</a>-->
+<!--    </section>-->
 
     <section>
       <h2>Esempio 1 - C'eran tre cerchi...</h2>
